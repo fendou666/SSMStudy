@@ -1,0 +1,17 @@
+1500004701541	Move 'ojdbc14.jar' to 'lib'
+1500005481459	Rename resource 'NewFile.xml'
+1500005538363	Move file
+1500005541266	Move file
+1500010125116	Copy file
+1500010172937	Copy file
+1500013995214	Rename type 'StudentService'
+1500015167823	Copy file
+1500015177451	Rename resource 'Copy of SpringAndMybatisAC.xml'
+1500015976338	Extract local variable 'modelAndView'
+1500016051137	Extract local variable 'modelAndView'
+1500016962276	Delete elements
+1500018425535	Rename resource 'NewFile.xml'
+1500018514944	Delete element
+1500029423354	Delete element
+1500029436081	Delete element
+1500030302613	Copy compilation unit

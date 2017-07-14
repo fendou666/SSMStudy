@@ -1,0 +1,7 @@
+package ls.service;
+
+import ls.dao.StudentMapper;
+
+public interface StudentService extends StudentMapper {
+	
+}

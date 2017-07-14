@@ -1,0 +1,8 @@
+package ls.controller;
+
+
+
+public class IndexServlet extends AbstractController {
+
+
+}

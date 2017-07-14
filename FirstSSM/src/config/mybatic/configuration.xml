@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- <settings>
+		<setting name="cacheEnabled" value="true"/>针对二级缓存
+	</settings>
+ -->
+	<typeAliases>
+		<typeAlias type="ls.model.Student" alias="studentTest"/>
+		<typeAlias type="ls.model.ClassName" alias="ClassNameTest"/>
+	</typeAliases>
+	<!-- 要放在环境的上面  -->
+	<!-- 对于所有String数组都这样操作吗 -->
+	<!-- <typeHandlers>
+		<typeHandler handler="com.mybatis.typehandles.StringAConvert" javaType="[Ljava.lang.String;" jdbcType="VARCHAR" />
+	</typeHandlers> -->
+	<!-- 可以配置多个JDBC相关的东西?, 一会配置一个mysql的  -->
+	<environments default="development">
+		<environment id="development">
+			<!-- 这里可以不写为JDBC吗  -->
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl"/>
+				<!-- 这里是username name N不大写  -->
+				<property name="username" value="scott"/>
+				<property name="password" value="tiger"/>
+			</dataSource>			
+		</environment> 
+	</environments>
+	<mappers>
+		<mapper resource="ls/mapping/StudentMapper.xml" />
+		<mapper resource="ls/mapping/ClassNameMapper.xml" />
+	</mappers>
+</configuration>

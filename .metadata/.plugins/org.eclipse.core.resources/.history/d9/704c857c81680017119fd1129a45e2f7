@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+	<bean id="dispatcherMap" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<!-- 这里的value是 另一个bean(处理action的control类)的id, key是请求的action -->
+				<prop key="/*.action">helloworldContorller</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="defaultResolver" class="org.springframework.web.servlet.mvc.multiaction.InternalPathMethodNameResolver">
+	</bean>
+	<bean id="helloworldContorller" class="ls.controller.TransferServlet">
+		<property name="MethodNameResolver" ref="defaultResolver"></property>
+	</bean>
+	
+</beans>
+

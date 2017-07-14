@@ -1,0 +1,7 @@
+<classpath>
+  <container id="FirstSSM!org.eclipse.jst.j2ee.internal.web.container">
+    <entry id="E:/1java/frameBySSM/FirstSSM/WebContent/WEB-INF/lib/mybatis-3.2.2.jar">
+      <source-attachment-path>E:/1java/frameBySSM/FirstSSM/WebContent/WEB-INF/lib/mybatis-3-mybatis-3.2.2.zip</source-attachment-path>
+    </entry>
+  </container>
+</classpath>

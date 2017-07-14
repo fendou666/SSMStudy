@@ -1,0 +1,34 @@
+package ls.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import ls.model.Student;
+import ls.service.IStudentService;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+
+public class IndexServlet extends AbstractController {
+	private IStudentService stuService;
+	
+	public IStudentService getStuService() {
+		return stuService;
+	}
+
+	public void setStuService(IStudentService stuService) {
+		this.stuService = stuService;
+	}
+
+	@Override
+	protected ModelAndView handleRequestInternal(HttpServletRequest arg0,
+			HttpServletResponse arg1) throws Exception {
+		Student stu = stuService.selectByPrimaryKey(3L);
+		ModelAndView modelAndView = new ModelAndView();
+		
+		modelAndView.addObject("userName", stu.getName());
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+
+}

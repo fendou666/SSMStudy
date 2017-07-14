@@ -1,0 +1,13 @@
+package ls.controller;
+
+
+
+public class IndexServlet extends AbstractController {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
