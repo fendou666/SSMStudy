@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;SecondSSM&apos; to &apos;MybatisFuncAndProcedure&apos;" description="Rename resource &apos;SecondSSM&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/SecondSSM" name="MybatisFuncAndProcedure" stamp="1502444932984" updateReferences="true"/>
+</session>

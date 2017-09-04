@@ -1,8 +1,0 @@
-package ls.controller;
-
-import org.springframework.web.servlet.mvc.AbstractController;
-
-public class IndexServlet extends AbstractController {
-
-
-}

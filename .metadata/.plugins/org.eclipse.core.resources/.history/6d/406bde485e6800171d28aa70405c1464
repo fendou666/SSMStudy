@@ -1,5 +1,0 @@
-package ls.service;
-
-public interface StudentService {
-	
-}

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="ls.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="ls.model.Student" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="LIKES" property="likes" jdbcType="VARCHAR" />
+    <result column="CLASSID" property="classid" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <resultMap id="proBaseResultMap" type="ls.model.Student" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="VARCHAR" />
+    <result column="LIKES" property="likes" jdbcType="VARCHAR" />
+    <result column="CLASSID" property="classid" jdbcType="DECIMAL" />
+  </resultMap>
+  <!-- 调用函数的参数Map  -->
+  <parameterMap type="map" id="testFuncParameterMap"> 
+   	<parameter property="result" resultMap="BaseResultMap" javaType="ResultSet" jdbcType="CURSOR" mode="OUT"/>
+   	<parameter property="V_stuid" jdbcType="DECIMAL"  mode="IN"/>
+   	<parameter property="V_inoutT" jdbcType="INTEGER"  mode="INOUT"/> 
+   	<parameter property="V_outT"  jdbcType="INTEGER"  mode="OUT"/>  
+  </parameterMap> 
+  
+  <!-- 调用存数过程的参数Map  -->
+  <parameterMap type="map" id="testParameterMap"> 
+  	<!-- 这里的属性对应存储过程中的值参数名, 与顺序没有关系  --> 
+  	<!-- 每个参数的javaType可设置也可以不设置  -->
+   	<parameter property="V_inoutT" jdbcType="INTEGER"  mode="INOUT"/> 
+   	<parameter property="V_stuid" jdbcType="DECIMAL"  mode="IN"/> 
+   	<parameter property="stu_cursor" resultMap="BaseResultMap" javaType="ResultSet" jdbcType="CURSOR" mode="OUT"/>  
+  </parameterMap> 
+  
+  <sql id="Base_Column_List" >
+    ID, NAME, SEX, LIKES, CLASSID
+  </sql>
+  <!-- 测试存储过程  -->
+  <select id="selectByTest" statementType="CALLABLE" parameterMap="testParameterMap" >
+    {call testemp(?,?,?)}
+  </select>
+  <!-- 调用存储过程第二种 -->
+  <select id="selectByTest2" statementType="CALLABLE" parameterType="java.util.Map" >
+    {call testemp(#{V_stuid, 	mode=IN, 	jdbcType=DECIMAL},
+    				#{V_inoutT,	mode=INOUT,	jdbcType=INTEGER},
+    				<!-- #{stu_cursor,mode=OUT,	jdbcType=CURSOR,	resultMap=ls.dao.StudentMapper.BaseResultMap} -->
+    				#{stu_cursor,mode=OUT,	jdbcType=CURSOR,	resultMap=proBaseResultMap})}
+    <!-- 这里resultMap 直接写 BaseResultMap 提示不可以， 通过加上命名空间后可以了， -->
+    <!-- 因为每个自动生成的Mapper.xml中都会加一个resultMap是 BaseResultMap的一个组件，这里需要通过命名空间进行区分 -->
+  </select>
+  <!--  测试调用函数1 -->
+  <select id="selectByFuncTest" statementType="CALLABLE" parameterMap="testFuncParameterMap" >
+    {? = call testfunc(?,?,?)}
+  </select>
+  <!--  测试调用函数2 -->
+  <select id="selectByFuncTest2" statementType="CALLABLE"  parameterType="java.util.Map" >
+    {#{result, mode=OUT,	jdbcType=CURSOR,	resultMap=proBaseResultMap} = call testfunc(
+    		#{V_stuid,	mode=IN,	jdbcType=DECIMAL},
+    		#{V_inoutT,	mode=INOUT,	jdbcType=INTEGER},
+    		#{V_outT,	mode=OUT,	jdbcType=INTEGER})}
+  </select>
+  
+  <!--  测试调用函数2 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from STUDENT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from STUDENT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="ls.model.Student" >
+    insert into STUDENT (ID, NAME, SEX, 
+      LIKES, CLASSID)
+    values (#{id,jdbcType=DECIMAL}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{likes,jdbcType=VARCHAR}, #{classid,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="ls.model.Student" >
+    insert into STUDENT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="likes != null" >
+        LIKES,
+      </if>
+      <if test="classid != null" >
+        CLASSID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null" >
+        #{likes,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null" >
+        #{classid,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ls.model.Student" >
+    update STUDENT
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="likes != null" >
+        LIKES = #{likes,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null" >
+        CLASSID = #{classid,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ls.model.Student" >
+    update STUDENT
+    set NAME = #{name,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=VARCHAR},
+      LIKES = #{likes,jdbcType=VARCHAR},
+      CLASSID = #{classid,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

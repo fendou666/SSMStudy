@@ -12,7 +12,6 @@
   </listener>
   
   <!-- springmvc配置  -->
-  
   <servlet>
   	<servlet-name>SpringMVC</servlet-name>
   	<!-- spring-webmvc-。。。.jar里面查找 -->
